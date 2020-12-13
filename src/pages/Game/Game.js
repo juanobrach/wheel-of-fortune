@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { motion } from "framer-motion";
+import { API, graphqlOperation } from "aws-amplify";
+import { createCoupon } from "../../graphql/mutations";
 import { WheelOfFortune, Modal } from "./components";
 import { useSpin } from "./hooks";
-import { motion } from "framer-motion";
+import { AuthContext } from "../../context";
 
 const variants = {
   hidden: {
@@ -28,6 +31,8 @@ const variants = {
 };
 
 export const Game = () => {
+  const authContext = useContext(AuthContext);
+
   const [showModal, setShowModal] = useState(false);
 
   const {
@@ -38,7 +43,28 @@ export const Game = () => {
     options,
     selectedRandom,
     coupon,
-  } = useSpin(setShowModal);
+    gameIsOver,
+  } = useSpin();
+
+  useEffect(() => {
+    if (gameIsOver === null) return;
+    getScoreAndOver();
+  }, [gameIsOver]);
+
+  const getScoreAndOver = async () => {
+    if (options[selectedRandom].isWiiner) {
+      const result = await API.graphql(
+        graphqlOperation(createCoupon, {
+          input: {
+            customerId: authContext.userId,
+            prizeNumber: selectedRandom,
+          },
+        })
+      );
+      console.log("result:", result);
+      setShowModal(true);
+    }
+  };
 
   useEffect(() => {
     setMustStartSpinning(true);
@@ -68,7 +94,7 @@ export const Game = () => {
       </motion.div>
 
       {showModal ?? (
-        <Modal coupon={coupon} selectedOption={options[selectedRandom]} />
+        <Modal coupon={coupon} selectedOption={options[selectedRandom].name} />
       )}
     </motion.div>
   );

@@ -9,7 +9,7 @@ const Routes = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
-        <Route exact path="/:bussiness">
+        <Route exact path="/home/:bussiness">
           <Start />
         </Route>
         <ProtectedRoute exact path="/game">

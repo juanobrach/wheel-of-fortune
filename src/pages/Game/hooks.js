@@ -17,23 +17,26 @@ import {
 } from "./constants";
 import options from "../../options.json";
 
-export const useSpin = (gameOver) => {
+export const useSpin = () => {
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
+  const [gameIsOver, setGameIsOver] = useState(null);
   const [coupon, setCoupon] = useState(null);
   const mustStopSpinning = useRef(false);
-  const slides = options.length;
 
-  const random = (min, max) => {
-    return Math.floor(Math.random() * Math.floor(max - min) - min);
-  };
   const selectedRandom = useMemo(() => {
     return randomOption(options);
-  }, randomOption);
+  }, [randomOption]);
+
+  const generateCoupon = () => {
+    API.get("apirest", "/coupon").then((response) => {
+      setCoupon(response.coupon[0]);
+    });
+  };
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -45,37 +48,25 @@ export const useSpin = (gameOver) => {
         setHasStartedSpinning(false);
         setHasStoppedSpinning(true);
         setMustStartSpinning(false);
-
-        setTimeout(() => {
-          API.get("apirest", "/coupon").then((response) => {
-            console.log("call to api");
-            setCoupon(response.coupon[0]);
-            console.log(response);
-          });
-          gameOver();
-        }, 2000);
-
-        // PASS AS PROP
+        whenSpinEnd();
       }
     }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
   }, [mustStopSpinning]);
 
+  const whenSpinEnd = () => {
+    setTimeout(() => {
+      setGameIsOver(true);
+    }, 2000);
+  };
+
   useEffect(() => {
     if (mustStartSpinning && !isCurrentlySpinning) {
+      generateCoupon();
       setIsCurrentlySpinning(true);
       startSpinning();
-      console.log("selectedRandom:", selectedRandom);
-      console.log("options:", options);
-      console.log("options.length:", options.length);
-      console.log("options.length:", options[selectedRandom]);
-
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedRandom,
         options.length
-      );
-      console.log(
-        "finalRotationDegreesCalculated:",
-        finalRotationDegreesCalculated
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
@@ -101,7 +92,7 @@ export const useSpin = (gameOver) => {
     setMustStartSpinning,
     getRouletteClass,
     options,
-    gameOver,
+    gameIsOver,
     selectedRandom,
     coupon,
   };

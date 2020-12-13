@@ -158,7 +158,6 @@ export const createCustomer = /* GraphQL */ `
   ) {
     createCustomer(input: $input, condition: $condition) {
       id
-      name
       email
       createdAt
       updatedAt

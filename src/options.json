@@ -1,12 +1,12 @@
 [
-  "10% OFF",
-  "So close!",
-  "Almost",
-  "Sorry!",
-  "Not today",
-  "50% OFF",
-  "free shipping",
-  "15% OFF",
-  "Nope",
-  "Bundle &amp Save"
+  { "name": "10% OFF", "isWiiner": true },
+  { "name": "So close!", "isWiiner": false },
+  { "name": "Almost", "isWiiner": false },
+  { "name": "Sorry!", "isWiiner": false },
+  { "name": "Not today", "isWiiner": false },
+  { "name": "50% OFF", "isWiiner": true },
+  { "name": "free shipping", "isWiiner": true },
+  { "name": "15% OFF", "isWiiner": true },
+  { "name": "Nope", "isWiiner": false },
+  { "name": "Bundle &amp Save", "isWiiner": true }
 ]

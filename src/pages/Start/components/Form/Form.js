@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import { API, graphqlOperation } from "aws-amplify";
 import { listCustomers } from "../../../../graphql/queries";
+import { createCustomer } from "../../../../graphql/mutations";
+
 import { AuthContext, AuthContextProvider } from "../../../../context";
 
 export const Form = () => {
@@ -17,8 +19,22 @@ export const Form = () => {
   }, [customerEmail]);
 
   const startGame = async () => {
+    console.log("generate a customer");
+    const result = await API.graphql(
+      graphqlOperation(createCustomer, {
+        input: {
+          email: customerEmail,
+        },
+      })
+    );
+    console.log("user:", result);
+    authContext.setUserId(result.data.createCustomer.id);
     authContext.updateAuthStatus();
+    history.push("/game");
+  };
 
+  const submit = async () => {
+    //authContext.updateAuthStatus();
     const query = await API.graphql(
       graphqlOperation(listCustomers, {
         filter: {
@@ -28,12 +44,11 @@ export const Form = () => {
         },
       })
     );
-
+    console.log("query:", query);
     if (query.data.listCustomers.items.length) {
       let customer = query.data.listCustomers.items[0];
     } else {
-      authContext.updateAuthStatus();
-      history.push("/game");
+      startGame();
     }
   };
 
@@ -72,7 +87,7 @@ export const Form = () => {
         exit="exit"
         variants={ButtonVariants}
         key={"button"}
-        onClick={startGame}
+        onClick={submit}
       >
         Spin the wheel!
       </Button>

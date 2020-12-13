@@ -18,7 +18,7 @@ type Coupon @model {
 
 type Customer @model {
   id: ID!
-  name: String!
+  name: String
   email: String!
 }
 

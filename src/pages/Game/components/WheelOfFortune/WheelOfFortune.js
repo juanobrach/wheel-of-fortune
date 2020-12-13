@@ -57,7 +57,7 @@ export const WheelOfFortune = ({
                       transform: `rotate(-${deg}deg) translate(0px, -50%)`,
                     }}
                   >
-                    {option}
+                    {option.name}
                   </div>
                 );
               })}
