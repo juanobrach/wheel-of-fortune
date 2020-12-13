@@ -9,6 +9,13 @@ type Bussiness @model {
   name: String!
 }
 
+type Coupon @model {
+  id: ID!
+  prizeNumber: String!
+  customerId: ID!
+  customer: Customer @connection(fields: ["customerId"])
+}
+
 type Customer @model {
   id: ID!
   name: String!

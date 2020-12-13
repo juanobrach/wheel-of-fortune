@@ -88,6 +88,69 @@ export const deleteBussiness = /* GraphQL */ `
     }
   }
 `;
+export const createCoupon = /* GraphQL */ `
+  mutation CreateCoupon(
+    $input: CreateCouponInput!
+    $condition: ModelCouponConditionInput
+  ) {
+    createCoupon(input: $input, condition: $condition) {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCoupon = /* GraphQL */ `
+  mutation UpdateCoupon(
+    $input: UpdateCouponInput!
+    $condition: ModelCouponConditionInput
+  ) {
+    updateCoupon(input: $input, condition: $condition) {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCoupon = /* GraphQL */ `
+  mutation DeleteCoupon(
+    $input: DeleteCouponInput!
+    $condition: ModelCouponConditionInput
+  ) {
+    deleteCoupon(input: $input, condition: $condition) {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createCustomer = /* GraphQL */ `
   mutation CreateCustomer(
     $input: CreateCustomerInput!

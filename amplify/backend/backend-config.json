@@ -24,6 +24,12 @@
           }
         }
       ]
+    },
+    "myLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
     }
   },
   "api": {
@@ -56,6 +62,20 @@
           "additionalAuthenticationProviders": []
         }
       }
+    },
+    "apirest": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "myLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   }
 }

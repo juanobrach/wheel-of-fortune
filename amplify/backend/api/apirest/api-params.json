@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/coupon",
+            "lambdaFunction": "myLambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/coupon"
+        }
+    ],
+    "resourceName": "apirest",
+    "apiName": "apirest",
+    "functionArns": [
+        {
+            "lambdaFunction": "myLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-whelloffortune-dev-00846-authRole",
+        "unAuthRoleName": "amplify-whelloffortune-dev-00846-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "myLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

@@ -58,6 +58,42 @@ export const listBussinesss = /* GraphQL */ `
     }
   }
 `;
+export const getCoupon = /* GraphQL */ `
+  query GetCoupon($id: ID!) {
+    getCoupon(id: $id) {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCoupons = /* GraphQL */ `
+  query ListCoupons(
+    $filter: ModelCouponFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCoupons(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        prizeNumber
+        customerId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getCustomer = /* GraphQL */ `
   query GetCustomer($id: ID!) {
     getCustomer(id: $id) {

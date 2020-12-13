@@ -70,6 +70,60 @@ export const onDeleteBussiness = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCoupon = /* GraphQL */ `
+  subscription OnCreateCoupon {
+    onCreateCoupon {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCoupon = /* GraphQL */ `
+  subscription OnUpdateCoupon {
+    onUpdateCoupon {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCoupon = /* GraphQL */ `
+  subscription OnDeleteCoupon {
+    onDeleteCoupon {
+      id
+      prizeNumber
+      customerId
+      customer {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateCustomer = /* GraphQL */ `
   subscription OnCreateCustomer {
     onCreateCustomer {
