@@ -1,0 +1,7 @@
+{
+    "tableName": "bussiness",
+    "partitionKeyName": "id",
+    "partitionKeyType": "N",
+    "sortKeyName": "name",
+    "sortKeyType": "S"
+}

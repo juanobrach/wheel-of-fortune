@@ -44,6 +44,7 @@ export const Game = () => {
     setMustStartSpinning(true);
   }, []);
 
+  console.log("options[selectedRandom]:", options[selectedRandom]);
   return (
     <motion.div
       key="game"
@@ -66,6 +67,7 @@ export const Game = () => {
           finalRotationDegrees={finalRotationDegrees}
         />
       </motion.div>
+
       {showModal ?? <Modal selectedOption={options[selectedRandom]} />}
     </motion.div>
   );

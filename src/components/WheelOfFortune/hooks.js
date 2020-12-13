@@ -4,8 +4,9 @@ import {
   useRef,
   useEffect,
   useLayoutEffect,
+  useMemo,
 } from "react";
-import { getRotationDegrees } from "../../utils";
+import { getRotationDegrees, randomOption } from "../../utils";
 import {
   STARTED_SPINNING,
   START_SPINNING_TIME,
@@ -27,7 +28,9 @@ export const useSpin = (gameOver) => {
   const random = (min, max) => {
     return Math.floor(Math.random() * Math.floor(max - min) - min);
   };
-  const selectedRandom = random(0, slides);
+  const selectedRandom = useMemo(() => {
+    return randomOption(options);
+  }, randomOption);
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -39,7 +42,9 @@ export const useSpin = (gameOver) => {
         setHasStartedSpinning(false);
         setHasStoppedSpinning(true);
         setMustStartSpinning(false);
-        gameOver();
+        setTimeout(() => {
+          gameOver();
+        }, 2000);
 
         // PASS AS PROP
       }
@@ -49,9 +54,18 @@ export const useSpin = (gameOver) => {
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
+      console.log("selectedRandom:", selectedRandom);
+      console.log("options:", options);
+      console.log("options.length:", options.length);
+      console.log("options.length:", options[selectedRandom]);
+
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedRandom,
         options.length
+      );
+      console.log(
+        "finalRotationDegreesCalculated:",
+        finalRotationDegreesCalculated
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }

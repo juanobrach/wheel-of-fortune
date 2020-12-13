@@ -1,12 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
+import { API, graphqlOperation } from "aws-amplify";
+import { listCustomers } from "../../graphql/queries";
+import { AuthContext, AuthContextProvider } from "../../context";
 
 export const Form = () => {
+  const authContext = useContext(AuthContext);
   const history = useHistory();
-
   const [isDisabled, setIsDisabled] = useState(true);
+  const [customerEmail, setCustomerEmail] = useState("");
+
+  useEffect(() => {
+    validateEmail(customerEmail);
+  }, [customerEmail]);
+
+  const startGame = async () => {
+    authContext.updateAuthStatus();
+
+    const query = await API.graphql(
+      graphqlOperation(listCustomers, {
+        filter: {
+          email: {
+            eq: customerEmail,
+          },
+        },
+      })
+    );
+
+    if (query.data.listCustomers.items.length) {
+      let customer = query.data.listCustomers.items[0];
+    } else {
+      authContext.updateAuthStatus();
+      history.push("/game");
+    }
+  };
 
   const validateEmail = (email) => {
     let lastAtPos = email.lastIndexOf("@");
@@ -34,7 +63,7 @@ export const Form = () => {
         animate="visible"
         initial="initial"
         exit="exit"
-        onChange={(e) => validateEmail(e.target.value)}
+        onChange={(e) => setCustomerEmail(e.target.value)}
       />
       <Button
         disabled={isDisabled}
@@ -43,7 +72,7 @@ export const Form = () => {
         exit="exit"
         variants={ButtonVariants}
         key={"button"}
-        onClick={() => history.push("/game")}
+        onClick={startGame}
       >
         Spin the wheel!
       </Button>

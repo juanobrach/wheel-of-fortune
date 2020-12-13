@@ -1,21 +1,38 @@
-import React from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
-import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { listBlogs } from "./graphql/queries";
+import { AuthContext, AuthContextProvider } from "./context";
+
+import Routes from "./routes";
 import "./styles.scss";
-import { Start, Game } from "./pages";
 
 export default function App() {
-  const location = useLocation();
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    createBlog();
+  }, [createBlog]);
+
+  const createBlog = async () => {
+    //  await API.graphql(graphqlOperation(listBlogs));
+  };
+
+  const login = () => {
+    setIsAuth(true);
+  };
+
   return (
-    <AnimateSharedLayout type="crossfade">
-      <div className="App">
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/" component={Start} />
-            <Route exact path="/game" component={Game} />
-          </Switch>
-        </AnimatePresence>
-      </div>
-    </AnimateSharedLayout>
+    <div className="App">
+      <AuthContext.Provider
+        value={{
+          isAuth: isAuth,
+          token: null,
+          updateAuthStatus: login,
+        }}
+      >
+        {" "}
+        <Routes />
+      </AuthContext.Provider>
+    </div>
   );
 }
