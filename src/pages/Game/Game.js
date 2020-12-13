@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { WheelOfFortune, Modal } from "../components";
-import { useSpin } from "../components/WheelOfFortune/hooks";
+import { WheelOfFortune, Modal } from "./components";
+import { useSpin } from "./hooks";
 import { motion } from "framer-motion";
-import { randomOption } from "../utils";
 
 const variants = {
   hidden: {
@@ -38,13 +37,13 @@ export const Game = () => {
     setMustStartSpinning,
     options,
     selectedRandom,
+    coupon,
   } = useSpin(setShowModal);
 
   useEffect(() => {
     setMustStartSpinning(true);
   }, []);
 
-  console.log("options[selectedRandom]:", options[selectedRandom]);
   return (
     <motion.div
       key="game"
@@ -68,7 +67,9 @@ export const Game = () => {
         />
       </motion.div>
 
-      {showModal ?? <Modal selectedOption={options[selectedRandom]} />}
+      {showModal ?? (
+        <Modal coupon={coupon} selectedOption={options[selectedRandom]} />
+      )}
     </motion.div>
   );
 };

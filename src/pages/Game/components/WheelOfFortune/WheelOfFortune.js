@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useState } from "react";
-import { ReactComponent as RotorTop } from "./../../img/front.svg";
-import { ReactComponent as RotorBackground } from "./../../img/background.svg";
+import { ReactComponent as RotorTop } from "./img/front.svg";
+import { ReactComponent as RotorBackground } from "./img/background.svg";
 import Pointer from "./Pointer";
 import { Rotor } from "./styles";
-import { useSize } from "./hooks";
+import { useSize } from "../../hooks";
 import "./Wof.scss";
 import {
   START_SPINNING_TIME,

@@ -8,6 +8,7 @@
   "main": "src/index.js",
   "dependencies": {
     "aws-amplify": "^3.3.12",
+    "aws-amplify-serverless-plugin": "^1.4.1",
     "framer-motion": "^2.9.5",
     "node-sass": "4.14.1",
     "react": "16.12.0",

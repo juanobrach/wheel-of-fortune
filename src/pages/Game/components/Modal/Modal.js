@@ -33,7 +33,7 @@ const overlayVariants = {
   },
 };
 
-export const Modal = ({ selectedOption }) => {
+export const Modal = ({ selectedOption, coupon }) => {
   return (
     <ModalOverlay
       initial="hidden"
@@ -49,7 +49,7 @@ export const Modal = ({ selectedOption }) => {
       >
         <Title>You have a good luck, this is your </Title>
         <Result>{selectedOption}</Result>
-        <Voucher>GOODFOOD4UI</Voucher>
+        <Voucher>{coupon}</Voucher>
         <CopyLink>COPY CODE</CopyLink>
       </ModalContent>
     </ModalOverlay>
@@ -75,6 +75,7 @@ const Voucher = styled.div`
   margin-bottom: 1em;
   height: 50px;
   line-height: 50px;
+  text-transform: uppercase;
 `;
 const CopyLink = styled.span`
   display: block;

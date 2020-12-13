@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import { API, graphqlOperation } from "aws-amplify";
-import { listCustomers } from "../../graphql/queries";
-import { AuthContext, AuthContextProvider } from "../../context";
+import { listCustomers } from "../../../../graphql/queries";
+import { AuthContext, AuthContextProvider } from "../../../../context";
 
 export const Form = () => {
   const authContext = useContext(AuthContext);

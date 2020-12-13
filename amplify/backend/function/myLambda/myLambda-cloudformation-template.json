@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-whelloffortune-dev-00846-deployment",
-          "S3Key": "amplify-builds/myLambda-766c2b51304a44446d68-build.zip"
+          "S3Key": "amplify-builds/myLambda-375a7346766a3330644e-build.zip"
         }
       }
     },

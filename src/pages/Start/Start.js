@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { API, graphqlOperation } from "aws-amplify";
-import { listBussinesss } from "../graphql/queries";
+import { listBussinesss } from "../../graphql/queries";
 
-import { Form } from "../components";
+import { Form } from "./components";
 
 const containerVariants = {
   initial: {

@@ -9,14 +9,6 @@ import "./styles.scss";
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    createBlog();
-  }, [createBlog]);
-
-  const createBlog = async () => {
-    //  await API.graphql(graphqlOperation(listBlogs));
-  };
-
   const login = () => {
     setIsAuth(true);
   };

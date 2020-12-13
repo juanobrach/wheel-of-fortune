@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as PointerShadowSVG } from "./../../img/pointer-bg.svg";
-import { ReactComponent as PointerFront } from "./../../img/pointer-front.svg";
+import { ReactComponent as PointerShadowSVG } from "./img/pointer-bg.svg";
+import { ReactComponent as PointerFront } from "./img/pointer-front.svg";
 
 const Pointer = () => {
   return (

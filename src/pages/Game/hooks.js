@@ -6,13 +6,15 @@ import {
   useLayoutEffect,
   useMemo,
 } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+
 import { getRotationDegrees, randomOption } from "../../utils";
 import {
   STARTED_SPINNING,
   START_SPINNING_TIME,
   CONTINUE_SPINNING_TIME,
   STOP_SPINNING_TIME,
-} from "../../constants";
+} from "./constants";
 import options from "../../options.json";
 
 export const useSpin = (gameOver) => {
@@ -22,6 +24,7 @@ export const useSpin = (gameOver) => {
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
+  const [coupon, setCoupon] = useState(null);
   const mustStopSpinning = useRef(false);
   const slides = options.length;
 
@@ -42,7 +45,13 @@ export const useSpin = (gameOver) => {
         setHasStartedSpinning(false);
         setHasStoppedSpinning(true);
         setMustStartSpinning(false);
+
         setTimeout(() => {
+          API.get("apirest", "/coupon").then((response) => {
+            console.log("call to api");
+            setCoupon(response.coupon[0]);
+            console.log(response);
+          });
           gameOver();
         }, 2000);
 
@@ -50,6 +59,7 @@ export const useSpin = (gameOver) => {
       }
     }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
   }, [mustStopSpinning]);
+
   useEffect(() => {
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
@@ -93,6 +103,7 @@ export const useSpin = (gameOver) => {
     options,
     gameOver,
     selectedRandom,
+    coupon,
   };
 };
 
