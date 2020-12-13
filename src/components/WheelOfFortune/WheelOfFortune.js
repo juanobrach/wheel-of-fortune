@@ -11,7 +11,7 @@ import {
   STOP_SPINNING_TIME,
 } from "../../constants";
 
-const WheelOfFortune = ({
+export const WheelOfFortune = ({
   options,
   className,
   startRotationDegrees,
@@ -69,5 +69,3 @@ const WheelOfFortune = ({
     </div>
   );
 };
-
-export default WheelOfFortune;

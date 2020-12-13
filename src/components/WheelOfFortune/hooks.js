@@ -14,7 +14,7 @@ import {
 } from "../../constants";
 import options from "../../options.json";
 
-export const useSpin = () => {
+export const useSpin = (gameOver) => {
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -24,34 +24,28 @@ export const useSpin = () => {
   const mustStopSpinning = useRef(false);
   const slides = options.length;
 
-  console.log("mustStartSpinning:", mustStartSpinning);
-
   const random = (min, max) => {
     return Math.floor(Math.random() * Math.floor(max - min) - min);
   };
-
   const selectedRandom = random(0, slides);
 
   const startSpinning = useCallback(() => {
-    console.log("mustStopSpinning:", mustStopSpinning);
     setHasStartedSpinning(true);
     setHasStoppedSpinning(false);
     mustStopSpinning.current = true;
     setTimeout(() => {
       if (mustStopSpinning.current) {
-        console.log("adentro mustStopSpinning:", mustStopSpinning);
         mustStopSpinning.current = false;
         setHasStartedSpinning(false);
         setHasStoppedSpinning(true);
         setMustStartSpinning(false);
+        gameOver();
+
         // PASS AS PROP
-        //onStopSpinning();
       }
     }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
   }, [mustStopSpinning]);
   useEffect(() => {
-    console.log("mustStartSpinning:", mustStartSpinning);
-    console.log("isCurrentlySpinning:", isCurrentlySpinning);
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
@@ -83,6 +77,8 @@ export const useSpin = () => {
     setMustStartSpinning,
     getRouletteClass,
     options,
+    gameOver,
+    selectedRandom,
   };
 };
 
@@ -91,7 +87,6 @@ export const useSize = () => {
 
   const updateSize = () => {
     let aspectRatio = document.getElementById("wof-wheel-aspect");
-    console.log("width", aspectRatio.width);
     if (aspectRatio.width > 0) {
       setSize(aspectRatio.width);
     }

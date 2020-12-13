@@ -1,18 +1,32 @@
-body, html{ background: white}
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  background: white;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
 .App {
   font-family: sans-serif;
   text-align: center;
-  background:white;
+  background: white;
+  height: 100vh;
 }
 
-.wof-animated{
-  transition: all .5s cubic-bezier(.215,.61,.355,1);
+h1,
+h2 {
+  margin: 0;
 }
 
-
-
-
-
+.wof-animated {
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
 
 // Class Animations
 .start-rotation {
@@ -21,79 +35,49 @@ body, html{ background: white}
   animation-duration: 10s;
   animation-delay: 1s;
   animation-iteration-count: infinite;
-
 }
 
 .wheel-rotor-shadow-inner,
-.wheel-rotor{
+.wheel-rotor {
   transform: rotate(0deg);
   //animation-name: rotate;
   animation-duration: 10s;
   animation-delay: 0s;
-  animation-iteration-count: 1 ;
-  animation-fill-mode: forwards
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
-
-
-.wof-pointer{
+.wof-pointer {
   transform: rotate(50deg);
- // animation-name: pointer;
-  animation-duration: .5s;
+  // animation-name: pointer;
+  animation-duration: 0.5s;
   animation-delay: 0s;
   animation-iteration-count: 16;
 }
 
-
-@keyframes pointer{
-  from{
-    transform: rotate(50deg)
+@keyframes pointer {
+  from {
+    transform: rotate(50deg);
   }
-  to{
-    transform: rotate(0deg)
-
+  to {
+    transform: rotate(0deg);
   }
 }
 
-@keyframes rotate{
-  from{
-    transform: rotate(0deg)
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
   }
-  to{
-    transform: rotate(1000deg)
-
+  to {
+    transform: rotate(1000deg);
   }
 }
 
-.wof-form-container{
-  display:flex;
-  flex-flow:row wrap;
+.wof-form-container {
+  display: flex;
+  flex-flow: row wrap;
   align-content: center;
-  > div{
-    width: 50%;
-
-    &:last-child{
-        position: relative;
-    }
-    button{
-
-      color: #ffffff;
-      font-size: 16px;
-      font-weight: normal;
-      font-family: Tahoma, sans-serif;
-      line-height: 22px;
-      text-decoration: none;
-      background-color: #d7394d;
-      border: 1px solid #d7394d;
-      text-transform: none;
-      white-space: normal!important;
-      text-align: center;
-      padding: 14px 40px!important;
-      margin: 20px 0 5px!important;
-    }
-  }
 }
-
 
 .wheel-rotor-slices path:nth-child(1) {
   fill: #f1b859;
