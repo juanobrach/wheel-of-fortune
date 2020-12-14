@@ -1,4 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 import { ReactComponent as RotorTop } from "./img/front.svg";
 import { ReactComponent as RotorBackground } from "./img/background.svg";
 import Pointer from "./Pointer";
@@ -11,6 +13,23 @@ import {
   STOP_SPINNING_TIME,
 } from "../../constants";
 
+const variants = {
+  hidden: {
+    x: "-400%",
+  },
+  visible: {
+    x: "-40%",
+    y: 0,
+  },
+  exit: {
+    x: "-400%",
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
 export const WheelOfFortune = ({
   options,
   className,
@@ -20,9 +39,13 @@ export const WheelOfFortune = ({
   const { size, updateSize } = useSize();
 
   return (
-    <div
+    <motion.div
       style={{ width: `${size}px` }}
       className={`wof-container wof-animated`}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={variants}
     >
       <div className="wof-wheel-outer">
         <div className={`wof-wheel ${size < 500 ? "small" : ""}`}>
@@ -66,6 +89,6 @@ export const WheelOfFortune = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { API, graphqlOperation } from "aws-amplify";
 import { listBussinesss } from "../../graphql/queries";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 import { Form } from "./components";
 
@@ -14,24 +15,35 @@ const containerVariants = {
   visible: {
     opacity: 1,
   },
+  exit: {},
+};
+
+const illustrationVariants = {
+  initial: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
   exit: {
-    transition: {
-      duration: 0.6,
-    },
+    y: -300,
   },
 };
 
 const titleVariants = {
   initial: {
-    y: -10,
+    y: -100,
   },
   visible: {
     y: 0,
+    transition: {
+      type: "spring",
+    },
   },
   exit: {
-    y: -200,
+    y: -100,
     transition: {
-      duration: 0.6,
+      type: "spring",
     },
   },
 };
@@ -68,6 +80,21 @@ export const Start = () => {
       initial="initial"
       variants={containerVariants}
     >
+      <motion.div
+        key="intro"
+        animate="visible"
+        initial="initial"
+        exit="exit"
+        variants={illustrationVariants}
+      >
+        <Player
+          autoplay={true}
+          loop={true}
+          controls={false}
+          src="https://assets9.lottiefiles.com/packages/lf20_FrS7ei.json"
+          style={{ height: "300px", width: "90%" }}
+        ></Player>
+      </motion.div>
       <Title
         key="title"
         animate="visible"

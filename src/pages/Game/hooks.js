@@ -5,6 +5,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useContext,
 } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 
@@ -17,7 +18,11 @@ import {
 } from "./constants";
 import options from "../../options.json";
 
+import { GameContext } from "../../context";
+
 export const useSpin = () => {
+  const { coupon, setCoupon, setPrize } = useContext(GameContext);
+
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -25,7 +30,6 @@ export const useSpin = () => {
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
   const [gameIsOver, setGameIsOver] = useState(null);
-  const [coupon, setCoupon] = useState(null);
   const mustStopSpinning = useRef(false);
 
   const selectedRandom = useMemo(() => {
@@ -64,6 +68,7 @@ export const useSpin = () => {
       generateCoupon();
       setIsCurrentlySpinning(true);
       startSpinning();
+      setPrize(options[selectedRandom]);
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedRandom,
         options.length

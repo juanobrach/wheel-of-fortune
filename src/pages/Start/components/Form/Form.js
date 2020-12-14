@@ -109,12 +109,10 @@ const inputVariants = {
 
 const ButtonVariants = {
   initial: {
-    opacity: 0,
-    y: 10,
+    y: 100,
   },
   visible: {
     y: 0,
-    opacity: 1,
   },
   exit: {
     opacity: 0,

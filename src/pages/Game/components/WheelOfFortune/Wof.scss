@@ -1,21 +1,20 @@
-.wof-container{
+.wof-container {
   position: fixed;
   top: 10%;
   height: 80%;
   left: 0;
   z-index: 2147483645;
-  transform: translate(-40%,0);
 }
 
-.wof-wheel-outer{
+.wof-wheel-outer {
   height: 100%;
   max-height: 720px;
   vertical-align: middle;
   display: inline-block;
 }
 
-#wof-wheel-aspect{
-  height: 100%!important;
+#wof-wheel-aspect {
+  height: 100% !important;
   width: auto;
   display: block;
   max-width: none;
@@ -28,49 +27,49 @@
   position: relative;
 
   // If wheel are small. Reduce the size of the font too :)
-  &.small{
-    .wheel-label{
-      font-size: calc(.95vw + .95vh + .45vmin)!important
+  &.small {
+    .wheel-label {
+      font-size: calc(0.95vw + 0.95vh + 0.45vmin) !important;
     }
   }
 
-  .wheel-inner{
-    position: absolute!important;
-    top: 0!important;
-    left: 0!important;
+  .wheel-inner {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 400px;
     // width: 100%;
-    height: 100%!important;
+    height: 100% !important;
 
-    .wheel-rotor-shadow{
+    .wheel-rotor-shadow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: .3;
-      transform: translate(3%,3%)!important;
-      .wheel-rotor-shadow-inner{
+      opacity: 0.3;
+      transform: translate(3%, 3%) !important;
+      .wheel-rotor-shadow-inner {
         height: 100%;
-        svg{
+        svg {
           width: 100%;
           height: auto;
         }
       }
     }
 
-    .wheel-rotor{
+    .wheel-rotor {
       cursor: pointer;
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
-      svg{
+      svg {
         width: 100%;
         height: auto;
       }
-    
-      .wheel-label{
+
+      .wheel-label {
         color: #fff;
         font-size: 20px;
         box-sizing: border-box;
@@ -81,16 +80,11 @@
         padding-left: 15%;
         width: 43%;
         transform-origin: 0 0;
-        font-family: 'open sans',Arial,sans-serif;
+        font-family: "open sans", Arial, sans-serif;
         font-weight: 700;
-        text-shadow: 0 0 5px rgba(0,0,0,.1);
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         overflow: hidden;
       }
     }
-
-
   }
-  
-  
 }
-

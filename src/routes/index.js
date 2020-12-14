@@ -1,5 +1,5 @@
 import React from "react";
-import { Start, Game } from "../pages";
+import { Start, Game, Result } from "../pages";
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { ProtectedRoute } from "../components";
@@ -15,6 +15,9 @@ const Routes = () => {
         <ProtectedRoute exact path="/game">
           <Game />
         </ProtectedRoute>
+        <Route exact path="/result">
+          <Result />
+        </Route>
       </Switch>
     </AnimatePresence>
   );

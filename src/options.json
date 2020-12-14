@@ -2,7 +2,7 @@
   { "name": "10% OFF", "isWiiner": true },
   { "name": "So close!", "isWiiner": false },
   { "name": "Almost", "isWiiner": false },
-  { "name": "Sorry!", "isWiiner": false },
+  { "name": "10% OFF", "isWiiner": true },
   { "name": "Not today", "isWiiner": false },
   { "name": "50% OFF", "isWiiner": true },
   { "name": "free shipping", "isWiiner": true },

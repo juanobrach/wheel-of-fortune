@@ -6,3 +6,12 @@ export const AuthContext = createContext({
   updateAuthStatus: () => {},
   setUserId: () => {},
 });
+
+export const GameContext = createContext({
+  coupon: null,
+  prize: null,
+  result: null,
+  setPrize: () => {},
+  setCoupon: () => {},
+  setResult: () => {},
+});

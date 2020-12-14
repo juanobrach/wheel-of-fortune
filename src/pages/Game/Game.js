@@ -5,33 +5,11 @@ import { createCoupon } from "../../graphql/mutations";
 import { WheelOfFortune, Modal } from "./components";
 import { useSpin } from "./hooks";
 import { AuthContext } from "../../context";
-
-const variants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      // On Tap - Navigation
-      type: "spring",
-      stiffness: 500,
-      damping: 90,
-      mass: 1,
-      duration: 1,
-    },
-  },
-  exit: {
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
-  },
-};
+import { Route, useHistory } from "react-router-dom";
 
 export const Game = () => {
   const authContext = useContext(AuthContext);
+  const history = useHistory();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -61,9 +39,8 @@ export const Game = () => {
           },
         })
       );
-      console.log("result:", result);
-      setShowModal(true);
     }
+    history.push("/result");
   };
 
   useEffect(() => {
@@ -71,20 +48,8 @@ export const Game = () => {
   }, []);
 
   return (
-    <motion.div
-      key="game"
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      variants={variants}
-      className="wof-form-container"
-    >
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={variants}
-      >
+    <motion.div key="game" className="wof-form-container">
+      <motion.div>
         <WheelOfFortune
           className={getRouletteClass()}
           options={options}
@@ -93,9 +58,9 @@ export const Game = () => {
         />
       </motion.div>
 
-      {showModal ?? (
+      {/* {showModal ?? (
         <Modal coupon={coupon} selectedOption={options[selectedRandom].name} />
-      )}
+      )} */}
     </motion.div>
   );
 };
