@@ -9,6 +9,9 @@ const Routes = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
+        <Route exact path="/">
+          <Start />
+        </Route>
         <Route exact path="/home/:bussiness">
           <Start />
         </Route>

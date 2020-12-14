@@ -58,9 +58,7 @@ export const useSpin = () => {
   }, [mustStopSpinning]);
 
   const whenSpinEnd = () => {
-    setTimeout(() => {
-      setGameIsOver(true);
-    }, 2000);
+    setGameIsOver(true);
   };
 
   useEffect(() => {
