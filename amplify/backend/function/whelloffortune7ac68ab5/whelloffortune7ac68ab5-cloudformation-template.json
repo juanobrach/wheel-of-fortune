@@ -77,7 +77,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-whelloffortune-dev-00846-deployment",
-          "S3Key": "amplify-builds/whelloffortune7ac68ab5-6643386c704142653030-build.zip"
+          "S3Key": "amplify-builds/whelloffortune7ac68ab5-574944455a392b2b436e-build.zip"
         }
       }
     },

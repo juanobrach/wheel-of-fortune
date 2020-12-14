@@ -7,6 +7,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^2.2.2",
     "aws-amplify": "^3.3.12",
     "aws-amplify-serverless-plugin": "^1.4.1",
     "framer-motion": "^2.9.5",
