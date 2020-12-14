@@ -7,6 +7,8 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "aws-amplify": "^3.3.12",
+    "aws-amplify-serverless-plugin": "^1.4.1",
     "framer-motion": "^2.9.5",
     "node-sass": "4.14.1",
     "react": "16.12.0",
@@ -15,7 +17,8 @@
     "react-scripts": "3.0.1",
     "styled-components": "5.2.1",
     "styled-normalize": "^8.0.7",
-    "styled-reset": "^4.3.3"
+    "styled-reset": "^4.3.3",
+    "voucher-code-generator": "^1.1.1"
   },
   "devDependencies": {
     "typescript": "3.8.3"
