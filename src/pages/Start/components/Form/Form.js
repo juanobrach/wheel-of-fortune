@@ -122,10 +122,16 @@ const ButtonVariants = {
 
 const Button = styled(motion.button)`
   ${(props) =>
-    props.disabled ??
+    props.disabled &&
     css`
       opacity: 0.5;
-    `}
+    `};
+  :hover {
+    background: #776fba;
+    color: #e6e5f5;
+    transition: 0.3s;
+  }
+  cursor: pointer;
   color: #776fba;
   font-size: 16px;
   font-weight: bold;
@@ -147,6 +153,7 @@ const Input = styled(motion.input)`
   color: white;
   width: 90vw;
   background: #7978c8;
+  max-width: 500px;
   border-radius: 1.25em;
   border-color: transparent;
   height: 5em;

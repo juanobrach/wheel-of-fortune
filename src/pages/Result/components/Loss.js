@@ -71,6 +71,8 @@ const Container = styled(motion.div)`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  max-width: 600px;
+  margin: auto;
 `;
 
 const Illustration = styled(motion.span)`

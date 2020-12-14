@@ -15,9 +15,9 @@ const Routes = () => {
         <ProtectedRoute exact path="/game">
           <Game />
         </ProtectedRoute>
-        <Route exact path="/result">
+        <ProtectedRoute exact path="/result">
           <Result />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </AnimatePresence>
   );

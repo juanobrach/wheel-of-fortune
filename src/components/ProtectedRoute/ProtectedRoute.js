@@ -6,11 +6,11 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (!authContext.isAuth) {
-  //     history.goBack();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!authContext.isAuth) {
+      history.goBack();
+    }
+  }, []);
 
   if (true) {
     return (
