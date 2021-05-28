@@ -1,15 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
-import { API, graphqlOperation } from "aws-amplify";
-import { listCustomers } from "../../../../graphql/queries";
-import { createCustomer } from "../../../../graphql/mutations";
-
-import { AuthContext, AuthContextProvider } from "../../../../context";
 
 export const Form = () => {
-  const authContext = useContext(AuthContext);
   const history = useHistory();
   const [isDisabled, setIsDisabled] = useState(true);
   const [customerEmail, setCustomerEmail] = useState("");
@@ -19,37 +13,12 @@ export const Form = () => {
   }, [customerEmail]);
 
   const startGame = async () => {
-    console.log("generate a customer");
-    const result = await API.graphql(
-      graphqlOperation(createCustomer, {
-        input: {
-          email: customerEmail,
-        },
-      })
-    );
-    console.log("user:", result);
-    authContext.setUserId(result.data.createCustomer.id);
-    authContext.updateAuthStatus();
+    console.log("start game");
     history.push("/game");
   };
 
   const submit = async () => {
-    //authContext.updateAuthStatus();
-    const query = await API.graphql(
-      graphqlOperation(listCustomers, {
-        filter: {
-          email: {
-            eq: customerEmail,
-          },
-        },
-      })
-    );
-    console.log("query:", query);
-    if (query.data.listCustomers.items.length) {
-      let customer = query.data.listCustomers.items[0];
-    } else {
-      startGame();
-    }
+    startGame();
   };
 
   const validateEmail = (email) => {
@@ -59,7 +28,7 @@ export const Form = () => {
       !(
         lastAtPos < lastDotPos &&
         lastAtPos > 0 &&
-        email.indexOf("@@") == -1 &&
+        email.indexOf("@@") === -1 &&
         lastDotPos > 2 &&
         email.length - lastDotPos > 2
       )

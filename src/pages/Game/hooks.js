@@ -7,8 +7,6 @@ import {
   useMemo,
   useContext,
 } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-
 import { getRotationDegrees, randomOption } from "../../utils";
 import {
   STARTED_SPINNING,
@@ -21,8 +19,7 @@ import options from "../../options.json";
 import { GameContext } from "../../context";
 
 export const useSpin = () => {
-  const { coupon, setCoupon, setPrize } = useContext(GameContext);
-
+  const { setPrize } = useContext(GameContext);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -34,13 +31,9 @@ export const useSpin = () => {
 
   const selectedRandom = useMemo(() => {
     return randomOption(options);
-  }, [randomOption]);
+  }, []);
 
-  const generateCoupon = () => {
-    API.get("apirest", "/coupon").then((response) => {
-      setCoupon(response.coupon[0]);
-    });
-  };
+  const generateCoupon = () => {};
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -73,14 +66,23 @@ export const useSpin = () => {
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
-  }, [mustStartSpinning]);
+  }, [
+    mustStartSpinning,
+    isCurrentlySpinning,
+    selectedRandom,
+    finalRotationDegrees,
+    setPrize,
+    setFinalRotationDegrees,
+    startSpinning,
+    setIsCurrentlySpinning,
+  ]);
 
   useEffect(() => {
     if (hasStoppedSpinning) {
       setIsCurrentlySpinning(false);
       setStartRotationDegrees(finalRotationDegrees);
     }
-  }, [hasStoppedSpinning]);
+  }, [hasStoppedSpinning, finalRotationDegrees]);
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
@@ -97,7 +99,6 @@ export const useSpin = () => {
     options,
     gameIsOver,
     selectedRandom,
-    coupon,
   };
 };
 

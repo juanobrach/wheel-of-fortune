@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 import { ReactComponent as RotorTop } from "./img/front.svg";

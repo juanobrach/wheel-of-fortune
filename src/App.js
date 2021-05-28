@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { createCustomer } from "./graphql/mutations";
+import React, { useState } from "react";
 import { AuthContext, GameContext } from "./context";
 
 import Routes from "./routes";
@@ -18,7 +16,6 @@ export default function App() {
     setIsAuth(true);
   };
 
-  console.log("userId:", userId);
   return (
     <div className="App">
       <AuthContext.Provider

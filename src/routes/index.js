@@ -1,7 +1,7 @@
 import React from "react";
 import { Start, Game, Result } from "../pages";
-import { Switch, Route, useLocation, Redirect } from "react-router-dom";
-import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { Switch, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { ProtectedRoute } from "../components";
 
 const Routes = () => {
