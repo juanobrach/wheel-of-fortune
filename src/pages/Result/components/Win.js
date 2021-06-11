@@ -14,7 +14,7 @@ export const Win = ({ prize }) => {
           exit="exit"
           variants={animationsVariants.title}
         >
-          You have a good luck, this is your{" "}
+          Tienes muy buena suerte, has ganado{" "}
         </Title>
         <Result>{prize.name}</Result>
       </div>

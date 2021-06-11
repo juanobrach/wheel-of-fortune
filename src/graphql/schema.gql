@@ -1,0 +1,13 @@
+type Coupon {
+  prizeName: String!
+  customerId: ID!
+}
+
+type Customer {
+  email: String!
+}
+
+type Query {
+  allCustomers: [Customer!]
+  customerByEmail(email: String!): Customer
+}

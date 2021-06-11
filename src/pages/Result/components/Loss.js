@@ -14,7 +14,7 @@ export const Loss = ({ prize }) => {
           exit="exit"
           variants={animationsVariants.title}
         >
-          maybe next time{" "}
+          Quizas la proxima vez{" "}
         </Title>
         <Result>{prize.name}</Result>
       </div>

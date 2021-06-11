@@ -7,22 +7,21 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@apollo/client": "^3.3.19",
+    "@apollo/react-hooks": "^4.0.0",
     "@lottiefiles/react-lottie-player": "^2.2.2",
-    "aws-amplify": "^3.3.12",
-    "aws-amplify-serverless-plugin": "^1.4.1",
+    "faunadb": "^4.3.0",
     "framer-motion": "^2.9.5",
-    "node-sass": "4.14.1",
+    "graphql": "^15.5.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "sass": "^1.34.0",
     "styled-components": "5.2.1",
     "styled-normalize": "^8.0.7",
     "styled-reset": "^4.3.3",
     "voucher-code-generator": "^1.1.1"
-  },
-  "devDependencies": {
-    "typescript": "3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",

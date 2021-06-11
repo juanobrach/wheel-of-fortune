@@ -74,7 +74,7 @@ export const Start = () => {
         exit="exit"
         variants={titleVariants}
       >
-        Try your Luck
+        Prueba tu Suerte!
       </Title>
       <Form />
     </Container>

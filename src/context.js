@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   userId: null,
   updateAuthStatus: () => {},
   setUserId: () => {},
+  setIsAuth: () => {},
 });
 
 export const GameContext = createContext({

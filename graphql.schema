@@ -1,0 +1,76 @@
+directive @embedded on OBJECT
+directive @collection(name: String!) on OBJECT
+directive @index(name: String!) on FIELD_DEFINITION
+directive @resolver(
+  name: String
+  paginated: Boolean! = false
+) on FIELD_DEFINITION
+directive @relation(name: String) on FIELD_DEFINITION
+directive @unique(index: String) on FIELD_DEFINITION
+type Coupon {
+  _id: ID!
+  prizeNumber: String!
+  code: String
+  customerId: ID!
+  id: ID!
+  prizeName: String!
+  _ts: Long!
+}
+
+input CouponInput {
+  id: ID!
+  prizeNumber: String!
+  prizeName: String!
+  code: String
+  customerId: ID!
+}
+
+type Customer {
+  _id: ID!
+  _ts: Long!
+  id: ID!
+  email: String!
+}
+
+input CustomerInput {
+  id: ID!
+  email: String!
+}
+
+type CustomerPage {
+  data: [Customer]!
+  after: String
+  before: String
+}
+
+scalar Date
+
+scalar Long
+
+type Mutation {
+  updateCoupon(
+    id: ID!
+    data: CouponInput!
+  ): Coupon
+  updateCustomer(
+    id: ID!
+    data: CustomerInput!
+  ): Customer
+  deleteCustomer(id: ID!): Customer
+  createCustomer(data: CustomerInput!): Customer!
+  deleteCoupon(id: ID!): Coupon
+  createCoupon(data: CouponInput!): Coupon!
+}
+
+type Query {
+  findCustomerByID(id: ID!): Customer
+  findCustomerByEmail(email: String!): Customer
+  findCouponByID(id: ID!): Coupon
+  allCustomers(
+    _size: Int
+    _cursor: String
+  ): CustomerPage!
+}
+
+scalar Time
+

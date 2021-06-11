@@ -1,24 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useCustomer } from "../../../../hooks";
+import { AuthContext } from "../../../../context";
 
 export const Form = () => {
   const history = useHistory();
+  const { setUserId, setIsAuth } = useContext(AuthContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [customerEmail, setCustomerEmail] = useState("");
+  const {
+    handleGetGustomerByEmail,
+    handleCreateCustomer,
+    getCustomerByEmailResponse,
+    createCustomerResponse,
+  } = useCustomer();
 
   useEffect(() => {
     validateEmail(customerEmail);
   }, [customerEmail]);
 
+  useEffect(() => {
+    if (
+      getCustomerByEmailResponse &&
+      !getCustomerByEmailResponse.customerByEmail
+    ) {
+      handleCreateCustomer(customerEmail);
+    }
+  }, [getCustomerByEmailResponse]);
+
+  useEffect(() => {
+    if (!createCustomerResponse) return;
+    const customerId = createCustomerResponse.createCustomer._id;
+    setUserId(customerId);
+    setIsAuth(true);
+    startGame();
+  }, [createCustomerResponse]);
+
   const startGame = async () => {
-    console.log("start game");
     history.push("/game");
   };
 
   const submit = async () => {
-    startGame();
+    handleGetGustomerByEmail(customerEmail);
   };
 
   const validateEmail = (email) => {
@@ -43,7 +68,7 @@ export const Form = () => {
       <Input
         variants={inputVariants}
         type="email"
-        placeholder="your@email.com"
+        placeholder="tu@correo.com"
         animate="visible"
         initial="initial"
         exit="exit"
@@ -58,7 +83,7 @@ export const Form = () => {
         key={"button"}
         onClick={submit}
       >
-        Spin the wheel!
+        Comenzar
       </Button>
     </>
   );

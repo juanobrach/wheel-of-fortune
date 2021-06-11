@@ -1,12 +1,16 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useContext } from "react";
 import { motion } from "framer-motion";
 import { WheelOfFortune } from "./components";
 import { useSpin } from "./hooks";
 import { useHistory } from "react-router-dom";
+import { AuthContext, GameContext } from "../../context";
+import { useCustomer } from "../../hooks";
 
 export const Game = () => {
   const history = useHistory();
-
+  const { userId } = useContext(AuthContext);
+  const { setPrize } = useContext(GameContext);
+  const { handleCreateCoupon, createPrizeResponse } = useCustomer();
   const {
     startRotationDegrees,
     finalRotationDegrees,
@@ -20,6 +24,8 @@ export const Game = () => {
   const getScoreAndOver = useCallback(async () => {
     if (options[selectedRandom].isWiiner) {
       // generate coupon for winner
+      setPrize(options[selectedRandom]);
+      handleCreateCoupon(userId, options[selectedRandom].name);
     }
     history.push("/result");
   }, [history, options, selectedRandom]);

@@ -47,10 +47,8 @@ export const Modal = ({ selectedOption, coupon }) => {
         exit="exit"
         variants={contentVariants}
       >
-        <Title>You have a good luck, this is your </Title>
+        <Title>Tienes muy buena suerte, tu premio: </Title>
         <Result>{selectedOption}</Result>
-        <Voucher>{coupon}</Voucher>
-        <CopyLink>COPY CODE</CopyLink>
       </ModalContent>
     </ModalOverlay>
   );
