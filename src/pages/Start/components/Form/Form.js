@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -28,7 +28,14 @@ export const Form = () => {
     ) {
       handleCreateCustomer(customerEmail);
     }
-  }, [getCustomerByEmailResponse]);
+  }, [getCustomerByEmailResponse, customerEmail, handleCreateCustomer]);
+
+  const startGame = useCallback(
+    () => async () => {
+      history.push("/game");
+    },
+    [history]
+  );
 
   useEffect(() => {
     if (!createCustomerResponse) return;
@@ -36,11 +43,7 @@ export const Form = () => {
     setUserId(customerId);
     setIsAuth(true);
     startGame();
-  }, [createCustomerResponse]);
-
-  const startGame = async () => {
-    history.push("/game");
-  };
+  }, [createCustomerResponse, setUserId, setIsAuth, startGame]);
 
   const submit = async () => {
     handleGetGustomerByEmail(customerEmail);

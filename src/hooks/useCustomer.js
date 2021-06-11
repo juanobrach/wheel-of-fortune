@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useEffect } from "react";
 import gql from "graphql-tag";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { AuthContext } from "../context";
 
 const CUSTOMERS_QUERY = gql`
   query getCustomerByEmail($email: String!) {
@@ -30,13 +29,13 @@ const SAVE_CUSTOMER_PRIZE = gql`
 `;
 
 export const useCustomer = () => {
-  const [getCustomerByEmail, { loading, data: getCustomerByEmailResponse }] =
+  const [getCustomerByEmail, { data: getCustomerByEmailResponse }] =
     useLazyQuery(CUSTOMERS_QUERY);
 
-  const [addCustomer, { customerMutation, data: createCustomerResponse }] =
+  const [addCustomer, { data: createCustomerResponse }] =
     useMutation(ADD_CUSTOMER);
 
-  const [createCoupon, { prizeMutation, data: createPrizeResponse }] =
+  const [createCoupon, { data: createPrizeResponse }] =
     useMutation(SAVE_CUSTOMER_PRIZE);
 
   useEffect(() => {

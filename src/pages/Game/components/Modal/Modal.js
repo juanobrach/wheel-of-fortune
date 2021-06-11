@@ -66,20 +66,6 @@ const Result = styled.span`
   display: block;
   margin-bottom: 23px;
 `;
-const Voucher = styled.div`
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='25' ry='25' stroke='%23707070FF' stroke-width='2' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-  border-radius: 25px;
-  border-radius: 25px;
-  margin-bottom: 1em;
-  height: 50px;
-  line-height: 50px;
-  text-transform: uppercase;
-`;
-const CopyLink = styled.span`
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-`;
 
 const ModalOverlay = styled(motion.div)`
   position: absolute;
