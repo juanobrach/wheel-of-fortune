@@ -10,43 +10,23 @@ export const Form = () => {
   const { setUserId, setIsAuth } = useContext(AuthContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [customerEmail, setCustomerEmail] = useState("");
-  const {
-    handleGetGustomerByEmail,
-    handleCreateCustomer,
-    getCustomerByEmailResponse,
-    createCustomerResponse,
-  } = useCustomer();
+  const { handleCreateCustomer } = useCustomer();
 
   useEffect(() => {
     validateEmail(customerEmail);
   }, [customerEmail]);
 
-  useEffect(() => {
-    if (
-      getCustomerByEmailResponse &&
-      !getCustomerByEmailResponse.customerByEmail
-    ) {
-      handleCreateCustomer(customerEmail);
-    }
-  }, [getCustomerByEmailResponse, customerEmail, handleCreateCustomer]);
-
-  const startGame = useCallback(
-    () => async () => {
-      history.push("/game");
-    },
-    [history]
-  );
-
-  useEffect(() => {
-    if (!createCustomerResponse) return;
-    const customerId = createCustomerResponse.createCustomer._id;
-    setUserId(customerId);
-    setIsAuth(true);
-    startGame();
-  }, [createCustomerResponse, setUserId, setIsAuth, startGame]);
+  const startGame = () => {
+    history.push("/game");
+  };
 
   const submit = async () => {
-    handleGetGustomerByEmail(customerEmail);
+    const response = await handleCreateCustomer(customerEmail);
+    if (response["@ref"]) {
+      setUserId(response["@ref"].id);
+      setIsAuth(true);
+      startGame();
+    }
   };
 
   const validateEmail = (email) => {

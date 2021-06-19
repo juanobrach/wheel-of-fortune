@@ -11,18 +11,17 @@ const client = new faunadb.Client({
 exports.handler = async (event, context, callback) => {
   const body = JSON.parse(event.body);
   /* parse the string body into a useable JS object */
-  const todoItem = {
+  const prize = {
     data: {
-      email: body.email,
+      customerId: body.customerId,
+      prizeName: body.prizeName,
     },
   };
   /* construct the fauna query */
   try {
     const response = await client.query(
-      q.Create(q.Collection("Customer"), {
-        data: {
-          email: todoItem.data.email,
-        },
+      q.Create(q.Collection("Coupon"), {
+        data: prize,
       })
     );
     return {

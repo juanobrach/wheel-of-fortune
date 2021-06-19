@@ -10,7 +10,7 @@ export const Game = () => {
   const history = useHistory();
   const { userId } = useContext(AuthContext);
   const { setPrize } = useContext(GameContext);
-  const { handleCreateCoupon } = useCustomer();
+  const { handleCreatePrize } = useCustomer();
   const {
     startRotationDegrees,
     finalRotationDegrees,
@@ -25,10 +25,10 @@ export const Game = () => {
     if (options[selectedRandom].isWiiner) {
       // generate coupon for winner
       setPrize(options[selectedRandom]);
-      handleCreateCoupon(userId, options[selectedRandom].name);
+      handleCreatePrize(userId, options[selectedRandom].name);
     }
     history.push("/result");
-  }, [history, options, selectedRandom, userId, handleCreateCoupon, setPrize]);
+  }, [history, options, selectedRandom, userId, handleCreatePrize, setPrize]);
 
   useEffect(() => {
     if (gameIsOver === null) return;

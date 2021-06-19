@@ -1,12 +1,12 @@
 [
-  { "name": "10% OFF", "isWiiner": true },
-  { "name": "So close!", "isWiiner": false },
-  { "name": "Almost", "isWiiner": false },
-  { "name": "10% OFF", "isWiiner": true },
-  { "name": "Not today", "isWiiner": false },
-  { "name": "50% OFF", "isWiiner": true },
-  { "name": "free shipping", "isWiiner": true },
-  { "name": "15% OFF", "isWiiner": true },
-  { "name": "Nope", "isWiiner": false },
-  { "name": "Bundle &amp Save", "isWiiner": true }
+  { "name": "1 Algodón de azúcar gratis", "isWiiner": true },
+  { "name": "3x2 en Galletas", "isWiiner": true },
+  { "name": "6 Cupcakes x $190", "isWiiner": true },
+  { "name": "5% de desc. en tu compra", "isWiiner": true },
+  { "name": "1 Galleta gratis", "isWiiner": true },
+  { "name": "10% de desc. en tu compra", "isWiiner": true },
+  { "name": "3x2 en Brownie pops", "isWiiner": true },
+  { "name": "2x1 en Algodón de azúcar", "isWiiner": true },
+  { "name": "3x2 en Bunny pops", "isWiiner": true },
+  { "name": "Quiza la proxima vez", "isWiiner": false }
 ]
