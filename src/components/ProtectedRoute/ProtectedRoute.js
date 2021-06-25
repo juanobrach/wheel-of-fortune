@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const history = useHistory();
   const { isAuth } = useContext(AuthContext);
 
-  if (true) {
+  if (isAuth) {
     return (
       <Route {...rest} render={(props) => <Component {...rest} {...props} />} />
     );

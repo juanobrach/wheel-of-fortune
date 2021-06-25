@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useCustomer } from "../../../../hooks";
 import { AuthContext } from "../../../../context";
 
@@ -9,6 +11,8 @@ export const Form = () => {
   const history = useHistory();
   const { setUserId, setIsAuth } = useContext(AuthContext);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [showError, setShowError] = useState(false);
+
   const [customerEmail, setCustomerEmail] = useState("");
   const { handleCreateCustomer } = useCustomer();
 
@@ -26,6 +30,8 @@ export const Form = () => {
       setUserId(response["@ref"].id);
       setIsAuth(true);
       startGame();
+    } else {
+      notify();
     }
   };
 
@@ -46,17 +52,22 @@ export const Form = () => {
     }
   };
 
+  const notify = () => toast("Lo sentimos, solo puedes participar una vez");
+
   return (
     <>
-      <Input
-        variants={inputVariants}
-        type="email"
-        placeholder="tu@correo.com"
-        animate="visible"
-        initial="initial"
-        exit="exit"
-        onChange={(e) => setCustomerEmail(e.target.value)}
-      />
+      <InputContainer>
+        <Input
+          variants={inputVariants}
+          type="email"
+          placeholder="tu@correo.com"
+          animate="visible"
+          initial="initial"
+          exit="exit"
+          onChange={(e) => setCustomerEmail(e.target.value)}
+        />
+        {showError && <ErrorMessage>Este correo ya fue utilizado</ErrorMessage>}
+      </InputContainer>
       <Button
         disabled={isDisabled}
         animate="visible"
@@ -68,6 +79,17 @@ export const Form = () => {
       >
         Comenzar
       </Button>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
@@ -138,4 +160,17 @@ const Input = styled(motion.input)`
   ::placeholder {
     color: white;
   }
+`;
+
+const InputContainer = styled.div`
+  position: relative;
+`;
+
+const ErrorMessage = styled.span`
+  display: block;
+  color: red;
+  position: absolute;
+  bottom: -2em;
+  left: 0;
+  right: 0;
 `;
