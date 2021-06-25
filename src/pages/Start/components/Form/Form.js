@@ -11,7 +11,6 @@ export const Form = () => {
   const history = useHistory();
   const { setUserId, setIsAuth } = useContext(AuthContext);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [showError, setShowError] = useState(false);
 
   const [customerEmail, setCustomerEmail] = useState("");
   const { handleCreateCustomer } = useCustomer();
@@ -66,7 +65,6 @@ export const Form = () => {
           exit="exit"
           onChange={(e) => setCustomerEmail(e.target.value)}
         />
-        {showError && <ErrorMessage>Este correo ya fue utilizado</ErrorMessage>}
       </InputContainer>
       <Button
         disabled={isDisabled}
@@ -164,13 +162,4 @@ const Input = styled(motion.input)`
 
 const InputContainer = styled.div`
   position: relative;
-`;
-
-const ErrorMessage = styled.span`
-  display: block;
-  color: red;
-  position: absolute;
-  bottom: -2em;
-  left: 0;
-  right: 0;
 `;
