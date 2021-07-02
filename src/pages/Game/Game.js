@@ -28,7 +28,7 @@ export const Game = () => {
       handleCreatePrize(userId, bussinessId, options[selectedRandom].name, selectedRandom);
     }
     history.push("/result");
-  }, [history, options, selectedRandom, userId, handleCreatePrize, setPrize]);
+  }, [history, options, selectedRandom, userId,bussinessId, handleCreatePrize, setPrize]);
 
   useEffect(() => {
     if (gameIsOver === null) return;

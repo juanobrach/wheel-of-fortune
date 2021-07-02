@@ -27,7 +27,7 @@ export const Form = () => {
 
   useEffect(()=>{
     setBussinessId(bussiness)
-  },[bussiness])
+  },[bussiness, setBussinessId])
 
   const submit = async () => {
     const response = await handleCreateCustomer(customerEmail);

@@ -36,7 +36,7 @@ export const useSpin = () => {
 
   const selectedRandom = useMemo(() => {
     return randomOption(options);
-  }, []);
+  }, [options]);
 
   const generateCoupon = async () => {
     const response = await handleCreateCoupon();
@@ -65,7 +65,7 @@ export const useSpin = () => {
   };
   useEffect(()=>{
     getPrizes()
-  },[])
+  },[getPrizes])
 
 
   const getPrizes = async ()=>{
@@ -97,6 +97,7 @@ export const useSpin = () => {
     setFinalRotationDegrees,
     startSpinning,
     setIsCurrentlySpinning,
+    generateCoupon
   ]);
 
   useEffect(() => {
