@@ -3,10 +3,10 @@ import { Win, Loss } from "./components";
 import { GameContext } from "../../context";
 
 export const Result = () => {
-  const { prize } = useContext(GameContext);
+  const { prize, coupon } = useContext(GameContext);
 
-  if (prize.isWiiner) {
-    return <Win prize={prize} />;
+  if (prize.win) {
+    return <Win prize={prize} coupon={coupon} />;
   } else {
     return <Loss prize={prize} />;
   }

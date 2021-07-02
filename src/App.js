@@ -9,6 +9,9 @@ import "./styles.scss";
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [bussinessId, setBussinessId] = useState(null);
+
+
 
   const [coupon, setCoupon] = useState(null);
   const [prize, setPrize] = useState(null);
@@ -25,6 +28,8 @@ export default function App() {
           value={{
             isAuth: isAuth,
             userId: userId,
+            bussinessId: bussinessId,
+            setBussinessId,
             updateAuthStatus: login,
             setUserId,
             setIsAuth,

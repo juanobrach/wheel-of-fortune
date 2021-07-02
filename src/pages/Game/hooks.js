@@ -14,12 +14,16 @@ import {
   CONTINUE_SPINNING_TIME,
   STOP_SPINNING_TIME,
 } from "./constants";
-import options from "../../options.json";
+// import options from "../../options.json";
 
-import { GameContext } from "../../context";
+import { useBussiness } from '../../hooks';
+import { AuthContext, GameContext } from "../../context";
 
 export const useSpin = () => {
-  const { setPrize } = useContext(GameContext);
+  const { bussinessId } = useContext(AuthContext);
+
+  const { setPrize, setCoupon } = useContext(GameContext);
+  const {handleGetPrizes, handleCreateCoupon} = useBussiness();
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -28,12 +32,18 @@ export const useSpin = () => {
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
   const [gameIsOver, setGameIsOver] = useState(null);
   const mustStopSpinning = useRef(false);
+  const [options, setOptions ] = useState([]);
 
   const selectedRandom = useMemo(() => {
     return randomOption(options);
   }, []);
 
-  const generateCoupon = () => {};
+  const generateCoupon = async () => {
+    const response = await handleCreateCoupon();
+    if(response){
+      setCoupon(response)
+    }
+  };
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -53,9 +63,20 @@ export const useSpin = () => {
   const whenSpinEnd = () => {
     setGameIsOver(true);
   };
+  useEffect(()=>{
+    getPrizes()
+  },[])
+
+
+  const getPrizes = async ()=>{
+    const response = await handleGetPrizes(bussinessId);
+    if (response.prizes) {
+      setOptions(response.prizes);
+    } 
+  }
 
   useEffect(() => {
-    if (mustStartSpinning && !isCurrentlySpinning) {
+    if (mustStartSpinning && !isCurrentlySpinning && options.length > 0 ) {
       generateCoupon();
       setIsCurrentlySpinning(true);
       startSpinning();
@@ -67,6 +88,7 @@ export const useSpin = () => {
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
   }, [
+    options,
     mustStartSpinning,
     isCurrentlySpinning,
     selectedRandom,

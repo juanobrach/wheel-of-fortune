@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
+
 import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +10,8 @@ import { AuthContext } from "../../../../context";
 
 export const Form = () => {
   const history = useHistory();
-  const { setUserId, setIsAuth } = useContext(AuthContext);
+  const { bussiness } = useParams();
+  const { setUserId, setIsAuth, setBussinessId } = useContext(AuthContext);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [customerEmail, setCustomerEmail] = useState("");
@@ -23,10 +25,14 @@ export const Form = () => {
     history.push("/game");
   };
 
+  useEffect(()=>{
+    setBussinessId(bussiness)
+  },[bussiness])
+
   const submit = async () => {
     const response = await handleCreateCustomer(customerEmail);
-    if (response["@ref"]) {
-      setUserId(response["@ref"].id);
+    if (response.created) {
+      setUserId(response.customerId);
       setIsAuth(true);
       startGame();
     } else {

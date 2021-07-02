@@ -10,15 +10,17 @@ export const useCustomer = () => {
     return response.json();
   };
 
-  const handleCreatePrize = async (customerId, prizeName) => {
-    const response = await fetch("/.netlify/functions/prize-create", {
+  const handleCreatePrize = async (customerId,bussinessId, prizeName, prizeId) => {
+    const response = await fetch("/.netlify/functions/create-coupon", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         customerId,
+        bussinessId,
         prizeName,
+        prizeId
       }),
     });
 

@@ -8,7 +8,7 @@ import { useCustomer } from "../../hooks";
 
 export const Game = () => {
   const history = useHistory();
-  const { userId } = useContext(AuthContext);
+  const { userId, bussinessId } = useContext(AuthContext);
   const { setPrize } = useContext(GameContext);
   const { handleCreatePrize } = useCustomer();
   const {
@@ -22,10 +22,10 @@ export const Game = () => {
   } = useSpin();
 
   const getScoreAndOver = useCallback(async () => {
-    if (options[selectedRandom].isWiiner) {
+    if (options[selectedRandom].win) {
       // generate coupon for winner
       setPrize(options[selectedRandom]);
-      handleCreatePrize(userId, options[selectedRandom].name);
+      handleCreatePrize(userId, bussinessId, options[selectedRandom].name, selectedRandom);
     }
     history.push("/result");
   }, [history, options, selectedRandom, userId, handleCreatePrize, setPrize]);
@@ -38,7 +38,6 @@ export const Game = () => {
   useEffect(() => {
     setMustStartSpinning(true);
   }, [setMustStartSpinning]);
-
   return (
     <motion.div key="game" className="wof-form-container">
       <motion.div>
