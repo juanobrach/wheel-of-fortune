@@ -38,12 +38,12 @@ export const useSpin = () => {
     return randomOption(options);
   }, [options]);
 
-  const generateCoupon = async () => {
+  const generateCoupon = useCallback ( async () => {
     const response = await handleCreateCoupon();
     if(response){
       setCoupon(response)
     }
-  };
+  },[handleCreateCoupon,setCoupon]);
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -63,17 +63,20 @@ export const useSpin = () => {
   const whenSpinEnd = () => {
     setGameIsOver(true);
   };
+
+  const getPrizes =  useCallback(   async ()=>{
+    const response = await handleGetPrizes(bussinessId);
+    if (response.prizes) {
+      setOptions(response.prizes);
+    } 
+  }, [handleGetPrizes,setOptions, bussinessId])
+
   useEffect(()=>{
     getPrizes()
   },[getPrizes])
 
 
-  const getPrizes = async ()=>{
-    const response = await handleGetPrizes(bussinessId);
-    if (response.prizes) {
-      setOptions(response.prizes);
-    } 
-  }
+
 
   useEffect(() => {
     if (mustStartSpinning && !isCurrentlySpinning && options.length > 0 ) {
