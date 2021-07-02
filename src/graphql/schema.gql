@@ -1,10 +1,55 @@
+type Bussiness {
+  name: String!
+  active: Boolean
+  games: [ID]
+  customers: [ID]
+  memership: Memership
+}
+
+type BussinessGames {
+  bussinessId: ID!
+  gameId: ID!
+  active: Boolean
+  prizes: [ID]
+  coupons: [ID]
+  memershipId: ID
+}
+
+type Memership {
+  name: String!
+  price: Int!
+}
+
+type Prize {
+  name: String!
+  description: String!
+  BussinessGameId: ID!
+  isWinner: Boolean
+}
+
 type Coupon {
-  prizeName: String!
+  bussinessId: ID!
+  prizeId: ID!
   customerId: ID!
+  status: CouponStatus!
+  created_at: String!
+  expire_at: String!
+}
+
+enum CouponStatus {
+  ACTIVE
+  REDEM
+  EXPIRED
+}
+
+type Game {
+  title: String!
+  description: String!
 }
 
 type Customer {
   email: String! @unique
+  coupons: [ID]
 }
 
 type Query {

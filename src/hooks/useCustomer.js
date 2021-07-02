@@ -1,4 +1,15 @@
 export const useCustomer = () => {
+  const handleCreateCoupon = async (customerId, prizeName) => {
+    const response = await fetch("/.netlify/functions/create-cupon", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.json();
+  };
+
   const handleCreatePrize = async (customerId, prizeName) => {
     const response = await fetch("/.netlify/functions/prize-create", {
       method: "POST",
@@ -31,5 +42,6 @@ export const useCustomer = () => {
   return {
     handleCreateCustomer,
     handleCreatePrize,
+    handleCreateCoupon,
   };
 };

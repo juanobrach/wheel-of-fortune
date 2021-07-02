@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-
 import { ReactComponent as RotorTop } from "./img/front.svg";
 import { ReactComponent as RotorBackground } from "./img/background.svg";
 import Pointer from "./Pointer";
