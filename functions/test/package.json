@@ -1,0 +1,11 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {},
+  "author": "",
+  "dependencies": {
+    "firebase-admin": "^9.10.0"
+  }
+}
