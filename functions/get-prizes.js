@@ -20,9 +20,9 @@ const db = admin.firestore()
 exports.handler = async (event, context, callback) => {
   const body = JSON.parse(event.body);
   /* parse the string body into a useable JS object */
-  const bussinessId = body.bussinessId;
-  const snapshot  = await db.collection('businessesGames').where('bussinessId', '==', bussinessId).get();
-  
+  const bussinessName = body.bussinessName.replace('-', ' ');
+  const gameId = body.gameId;
+  const snapshot  = await db.collection('businesses').where('name', '==', bussinessName).get();
   
   if (snapshot.empty) {
     return callback(null, {
@@ -32,18 +32,22 @@ exports.handler = async (event, context, callback) => {
         prizes: false
       })
     })
-  }  
-  let prizes = null;
-  snapshot.docs.forEach(game => {
-    let appObj = game.data();
-    prizes = appObj.prizes
-})
+  }
 
-  return callback(null, {
-    statusCode: statusCode,
-    headers: headers,
-    body: JSON.stringify({
-      prizes
+  snapshot.docs.forEach(  async (bussiness) => {
+    let appObj = bussiness.data();
+    let bussinessId = appObj.id;
+    const query =  await db.collectionGroup('games').where('gameId', '==', gameId).get();
+    query.docs.forEach( games => {
+      const data = games.data();
+      console.log('data:', data.prizes)
+      return callback(null, {
+        statusCode: statusCode,
+        headers: headers,
+        body: JSON.stringify({
+          prizes: data.prizes
+        })
+      })
     })
   })
 }

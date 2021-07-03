@@ -1,12 +1,13 @@
 export const useBussiness = () => {
-    const handleGetPrizes = async (bussinessId) => {
+    const handleGetPrizes = async (bussinessName, gameId) => {
       const response = await fetch("/.netlify/functions/get-prizes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            bussinessId
+            bussinessName,
+            gameId
         }) // body data type must match "Content-Type" header
       });
   

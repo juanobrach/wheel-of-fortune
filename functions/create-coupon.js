@@ -19,6 +19,7 @@ exports.handler = async (event, context, callback) => {
     bussinessId: body.bussinessId,
     prizeId: body.prizeId,
     prizeName: body.prizeName,
+    redem: false,
     created_at,
     expire_at,
   };

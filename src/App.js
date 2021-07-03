@@ -15,6 +15,7 @@ export default function App() {
 
   const [coupon, setCoupon] = useState(null);
   const [prize, setPrize] = useState(null);
+  const [prizes, setPrizes] = useState(null);
   const [result, setResult] = useState(null);
 
   const login = () => {
@@ -39,8 +40,10 @@ export default function App() {
             value={{
               coupon: coupon,
               prize: prize,
+              prizes: prizes,
               result: result,
               setPrize: setPrize,
+              setPrizes: setPrizes,
               setCoupon: setCoupon,
               setResult: setResult,
             }}

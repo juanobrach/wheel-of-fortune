@@ -20,6 +20,7 @@
     "moment": "^2.29.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
+    "react-loader-spinner": "^4.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-toastify": "^7.0.4",
@@ -41,5 +42,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "lambda-dev": "^1.8.22"
+  }
 }

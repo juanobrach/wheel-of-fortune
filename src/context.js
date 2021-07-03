@@ -13,8 +13,10 @@ export const AuthContext = createContext({
 export const GameContext = createContext({
   coupon: null,
   prize: null,
+  prizes: null,
   result: null,
   setPrize: () => {},
+  setPrizes: () => {},
   setCoupon: () => {},
   setResult: () => {},
 });

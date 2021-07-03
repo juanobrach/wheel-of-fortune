@@ -1,18 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import styled, { css } from "styled-components";
-import { useHistory,useParams } from "react-router-dom";
-
+import { useHistory, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.css";
-import { useCustomer } from "../../../../hooks";
-import { AuthContext } from "../../../../context";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useCustomer, useBussiness } from "../../../../hooks";
+import { AuthContext, GameContext } from "../../../../context";
 
 export const Form = () => {
   const history = useHistory();
-  const { bussiness } = useParams();
+  const { bussiness, gameId } = useParams();
   const { setUserId, setIsAuth, setBussinessId } = useContext(AuthContext);
+  const { setPrizes, prizes } = useContext(GameContext);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { handleGetPrizes } = useBussiness();
 
   const [customerEmail, setCustomerEmail] = useState("");
   const { handleCreateCustomer } = useCustomer();
@@ -25,11 +29,25 @@ export const Form = () => {
     history.push("/game");
   };
 
-  useEffect(()=>{
-    setBussinessId(bussiness)
-  },[bussiness, setBussinessId])
+  useEffect(() => {
+    setBussinessId(bussiness);
+  }, [bussiness, setBussinessId]);
 
-  const submit = async () => {
+  const getPrizes = useCallback(async () => {
+    const response = await handleGetPrizes(bussiness, gameId);
+    if (response.prizes) {
+      setPrizes(response.prizes);
+    }
+  }, [handleGetPrizes, setPrizes, bussiness, gameId]);
+
+  useEffect(() => {
+    if (prizes) return;
+    getPrizes();
+  }, [getPrizes, prizes]);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     const response = await handleCreateCustomer(customerEmail);
     if (response.created) {
       setUserId(response.customerId);
@@ -38,6 +56,7 @@ export const Form = () => {
     } else {
       notify();
     }
+    setIsLoading(false);
   };
 
   const validateEmail = (email) => {
@@ -60,7 +79,7 @@ export const Form = () => {
   const notify = () => toast("Lo sentimos, solo puedes participar una vez");
 
   return (
-    <>
+    <form onSubmit={submit}>
       <InputContainer>
         <Input
           variants={inputVariants}
@@ -79,9 +98,13 @@ export const Form = () => {
         exit="exit"
         variants={ButtonVariants}
         key={"button"}
-        onClick={submit}
+        type={"submit"}
       >
-        Comenzar
+        {!isLoading ? (
+          "Comenzar"
+        ) : (
+          <Loader type="Puff" color="#00BFFF" height={30} width={30} />
+        )}
       </Button>
       <ToastContainer
         position="top-center"
@@ -94,7 +117,7 @@ export const Form = () => {
         draggable
         pauseOnHover
       />
-    </>
+    </form>
   );
 };
 
@@ -149,6 +172,8 @@ const Button = styled(motion.button)`
   margin: 20px 0 5px !important;
   border-radius: 72px;
   border-color: transparent;
+  min-height: 54px;
+  min-width: 186px;
 `;
 
 const Input = styled(motion.input)`

@@ -17,13 +17,11 @@ import {
 // import options from "../../options.json";
 
 import { useBussiness } from '../../hooks';
-import { AuthContext, GameContext } from "../../context";
+import { GameContext } from "../../context";
 
 export const useSpin = () => {
-  const { bussinessId } = useContext(AuthContext);
-
-  const { setPrize, setCoupon } = useContext(GameContext);
-  const {handleGetPrizes, handleCreateCoupon} = useBussiness();
+  const { setPrize, setCoupon, prizes} = useContext(GameContext);
+  const { handleCreateCoupon} = useBussiness();
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -32,7 +30,7 @@ export const useSpin = () => {
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
   const [gameIsOver, setGameIsOver] = useState(null);
   const mustStopSpinning = useRef(false);
-  const [options, setOptions ] = useState([]);
+  const options = prizes
 
   const selectedRandom = useMemo(() => {
     return randomOption(options);
@@ -64,16 +62,6 @@ export const useSpin = () => {
     setGameIsOver(true);
   };
 
-  const getPrizes =  useCallback(   async ()=>{
-    const response = await handleGetPrizes(bussinessId);
-    if (response.prizes) {
-      setOptions(response.prizes);
-    } 
-  }, [handleGetPrizes,setOptions, bussinessId])
-
-  useEffect(()=>{
-    getPrizes()
-  },[getPrizes])
 
 
 
