@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { AuthContext, GameContext } from "./context";
-import { client } from "./client";
 
 import Routes from "./routes";
 import "./styles.scss";
