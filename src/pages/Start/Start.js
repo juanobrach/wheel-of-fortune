@@ -64,7 +64,7 @@ export const Start = () => {
           loop={true}
           controls={false}
           src="https://assets9.lottiefiles.com/packages/lf20_FrS7ei.json"
-          style={{ height: "300px", width: "90%" }}
+          style={{ height: "300px", width: "90%", minWidth: "300px" }}
         ></Player>
       </motion.div>
       <Title

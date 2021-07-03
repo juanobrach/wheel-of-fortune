@@ -9,7 +9,7 @@ import { useCustomer } from "../../hooks";
 export const Game = () => {
   const history = useHistory();
   const { userId, bussinessId } = useContext(AuthContext);
-  const { setPrize } = useContext(GameContext);
+  const { setPrize, coupon } = useContext(GameContext);
   const { handleCreatePrize } = useCustomer();
   const {
     startRotationDegrees,
@@ -25,10 +25,25 @@ export const Game = () => {
     if (options[selectedRandom].win) {
       // generate coupon for winner
       setPrize(options[selectedRandom]);
-      handleCreatePrize(userId, bussinessId, options[selectedRandom].name, selectedRandom);
+      handleCreatePrize(
+        userId,
+        bussinessId,
+        options[selectedRandom].name,
+        selectedRandom,
+        coupon
+      );
     }
     history.push("/result");
-  }, [history, options, selectedRandom, userId,bussinessId, handleCreatePrize, setPrize]);
+  }, [
+    history,
+    options,
+    selectedRandom,
+    userId,
+    bussinessId,
+    handleCreatePrize,
+    setPrize,
+    coupon,
+  ]);
 
   useEffect(() => {
     if (gameIsOver === null) return;

@@ -17,7 +17,8 @@ export const useCustomer = () => {
     customerId,
     bussinessId,
     prizeName,
-    prizeId
+    prizeId,
+    couponNumber
   ) => {
     return new Promise(async (resolve, reject) => {
       const expire_at = moment().add(7, "d").format("YYYY-MM-DD");
@@ -28,6 +29,7 @@ export const useCustomer = () => {
         prizeId: prizeId,
         prizeName: prizeName,
         redem: false,
+        couponNumber,
         created_at,
         expire_at,
       };
@@ -55,6 +57,10 @@ export const useCustomer = () => {
         resolve({
           created: true,
           customerId: response.id,
+        });
+      } else {
+        resolve({
+          created: false,
         });
       }
     });

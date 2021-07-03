@@ -29,18 +29,14 @@ export const Form = () => {
     history.push("/game");
   };
 
-  useEffect(() => {
-    setBussinessId(bussiness);
-  }, [bussiness, setBussinessId]);
-
   const getPrizes = useCallback(async () => {
     const response = await handleGetPrizes(bussiness, gameId);
-    console.log("response:", response);
     if (!response) return;
     if (response.prizes) {
       setPrizes(response.prizes);
+      setBussinessId(response.bussinessId);
     }
-  }, [handleGetPrizes, setPrizes, bussiness, gameId]);
+  }, [handleGetPrizes, setPrizes, bussiness, gameId, setBussinessId]);
 
   useEffect(() => {
     if (prizes) return;
@@ -105,7 +101,7 @@ export const Form = () => {
         {!isLoading ? (
           "Comenzar"
         ) : (
-          <Loader type="Puff" color="#00BFFF" height={30} width={30} />
+          <Loader type="Puff" color="#00BFFF" height={20} width={20} />
         )}
       </Button>
       <ToastContainer
@@ -174,7 +170,7 @@ const Button = styled(motion.button)`
   margin: 20px 0 5px !important;
   border-radius: 72px;
   border-color: transparent;
-  min-height: 54px;
+  max-height: 54px;
   min-width: 186px;
 `;
 

@@ -31,9 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "functions": "cd functions/test && yarn install",
-    "start:lambda": "netlify-lambda serve --config ./config/webpack.functions.js src/functions"
+    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",

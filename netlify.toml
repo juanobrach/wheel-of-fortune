@@ -5,7 +5,6 @@
   publish = "build"
 [functions]
   directory = "functions"
-  external_node_modules = ["firebase-admin"] 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
   #[[redirects]]

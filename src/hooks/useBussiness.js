@@ -14,7 +14,7 @@ export const useBussiness = () => {
         };
       }
 
-      await snapshot.docs.forEach(async () => {
+      await snapshot.docs.forEach(async (bussiness) => {
         const query = await db
           .collectionGroup("games")
           .where("gameId", "==", gameId)
@@ -24,6 +24,7 @@ export const useBussiness = () => {
           const data = await games.data();
           resolve({
             prizes: data.prizes,
+            bussinessId: bussiness.id,
           });
         });
       });
