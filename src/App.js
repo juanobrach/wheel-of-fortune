@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ApolloProvider } from "@apollo/client";
 import { AuthContext, GameContext } from "./context";
 import { client } from "./client";
 
@@ -11,8 +10,6 @@ export default function App() {
   const [userId, setUserId] = useState(null);
   const [bussinessId, setBussinessId] = useState(null);
 
-
-
   const [coupon, setCoupon] = useState(null);
   const [prize, setPrize] = useState(null);
   const [prizes, setPrizes] = useState(null);
@@ -23,35 +20,33 @@ export default function App() {
   };
 
   return (
-    <ApolloProvider client={client}>
-      <div className="App">
-        <AuthContext.Provider
+    <div className="App">
+      <AuthContext.Provider
+        value={{
+          isAuth: isAuth,
+          userId: userId,
+          bussinessId: bussinessId,
+          setBussinessId,
+          updateAuthStatus: login,
+          setUserId,
+          setIsAuth,
+        }}
+      >
+        <GameContext.Provider
           value={{
-            isAuth: isAuth,
-            userId: userId,
-            bussinessId: bussinessId,
-            setBussinessId,
-            updateAuthStatus: login,
-            setUserId,
-            setIsAuth,
+            coupon: coupon,
+            prize: prize,
+            prizes: prizes,
+            result: result,
+            setPrize: setPrize,
+            setPrizes: setPrizes,
+            setCoupon: setCoupon,
+            setResult: setResult,
           }}
         >
-          <GameContext.Provider
-            value={{
-              coupon: coupon,
-              prize: prize,
-              prizes: prizes,
-              result: result,
-              setPrize: setPrize,
-              setPrizes: setPrizes,
-              setCoupon: setCoupon,
-              setResult: setResult,
-            }}
-          >
-            <Routes />
-          </GameContext.Provider>
-        </AuthContext.Provider>
-      </div>
-    </ApolloProvider>
+          <Routes />
+        </GameContext.Provider>
+      </AuthContext.Provider>
+    </div>
   );
 }
