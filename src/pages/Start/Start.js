@@ -17,6 +17,7 @@ const containerVariants = {
 const illustrationVariants = {
   initial: {
     opacity: 0,
+    width: "100%",
   },
   visible: {
     opacity: 1,
@@ -64,7 +65,7 @@ export const Start = () => {
           loop={true}
           controls={false}
           src="https://assets9.lottiefiles.com/packages/lf20_FrS7ei.json"
-          style={{ height: "300px", width: "90%", minWidth: "300px" }}
+          style={{ height: "300px", width: "90%" }}
         ></Player>
       </motion.div>
       <Title
