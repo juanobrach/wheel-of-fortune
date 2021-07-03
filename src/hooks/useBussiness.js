@@ -1,36 +1,51 @@
-export const useBussiness = () => {
-    const handleGetPrizes = async (bussinessName, gameId) => {
-      const response = await fetch("/.netlify/functions/get-prizes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            bussinessName,
-            gameId
-        }) // body data type must match "Content-Type" header
-      });
-  
-      return response.json();
-    };
+import db from "../firebase.config";
 
-    const handleCreateCoupon = async () => {
-        const response = await fetch("/.netlify/functions/create-voucher", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+export const useBussiness = () => {
+  const handleGetPrizes = async (bussinessName, gameId) => {
+    return new Promise(async (resolve, reject) => {
+      const snapshot = await db
+        .collection("businesses")
+        .where("name", "==", bussinessName.replace("-", " "))
+        .get();
+
+      if (snapshot.empty) {
+        return {
+          prizes: false,
+        };
+      }
+
+      await snapshot.docs.forEach(async (bussiness) => {
+        let appObj = bussiness.data();
+        let bussinessId = appObj.id;
+        const query = await db
+          .collectionGroup("games")
+          .where("gameId", "==", gameId)
+          .get();
+
+        query.docs.forEach(async (games) => {
+          const data = await games.data();
+          console.log("data:", data.prizes);
+          resolve({
+            prizes: data.prizes,
+          });
         });
-    
-        return response.json();
-      };
-  
-   
-    return {
-      handleGetPrizes,
-      handleCreateCoupon
-    };
+      });
+    });
   };
 
-  
-  
+  const handleCreateCoupon = async () => {
+    const response = await fetch("/.netlify/functions/create-voucher", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.json();
+  };
+
+  return {
+    handleGetPrizes,
+    handleCreateCoupon,
+  };
+};

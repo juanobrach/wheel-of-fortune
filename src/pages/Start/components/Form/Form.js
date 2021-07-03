@@ -35,6 +35,8 @@ export const Form = () => {
 
   const getPrizes = useCallback(async () => {
     const response = await handleGetPrizes(bussiness, gameId);
+    console.log("response:", response);
+    if (!response) return;
     if (response.prizes) {
       setPrizes(response.prizes);
     }
