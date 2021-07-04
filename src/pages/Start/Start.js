@@ -65,7 +65,7 @@ export const Start = () => {
           loop={true}
           controls={false}
           src="https://assets9.lottiefiles.com/packages/lf20_FrS7ei.json"
-          style={{ height: "300px", width: "90%" }}
+          style={{ height: "200px", width: "90%" }}
         ></Player>
       </motion.div>
       <Title
@@ -87,7 +87,7 @@ const Container = styled(motion.div)`
   flex-flow: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 100vh;
+  height: 100%;
 `;
 
 const Title = styled(motion.h1)`

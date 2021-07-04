@@ -16,12 +16,12 @@ import {
 } from "./constants";
 // import options from "../../options.json";
 
-import { useBussiness } from '../../hooks';
+import { useBussiness } from "../../hooks";
 import { GameContext } from "../../context";
 
 export const useSpin = () => {
-  const { setPrize, setCoupon, prizes} = useContext(GameContext);
-  const { handleCreateCoupon} = useBussiness();
+  const { setPrize, setCoupon, prizes } = useContext(GameContext);
+  const { handleCreateCoupon } = useBussiness();
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -30,18 +30,18 @@ export const useSpin = () => {
   const [mustStartSpinning, setMustStartSpinning] = useState(false);
   const [gameIsOver, setGameIsOver] = useState(null);
   const mustStopSpinning = useRef(false);
-  const options = prizes
+  const options = prizes;
 
   const selectedRandom = useMemo(() => {
     return randomOption(options);
   }, [options]);
 
-  const generateCoupon = useCallback ( async () => {
+  const generateCoupon = useCallback(async () => {
     const response = await handleCreateCoupon();
-    if(response){
-      setCoupon(response)
+    if (response) {
+      setCoupon(response);
     }
-  },[handleCreateCoupon,setCoupon]);
+  }, [handleCreateCoupon, setCoupon]);
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
@@ -62,12 +62,8 @@ export const useSpin = () => {
     setGameIsOver(true);
   };
 
-
-
-
-
   useEffect(() => {
-    if (mustStartSpinning && !isCurrentlySpinning && options.length > 0 ) {
+    if (mustStartSpinning && !isCurrentlySpinning && options.length > 0) {
       generateCoupon();
       setIsCurrentlySpinning(true);
       startSpinning();
@@ -88,7 +84,7 @@ export const useSpin = () => {
     setFinalRotationDegrees,
     startSpinning,
     setIsCurrentlySpinning,
-    generateCoupon
+    generateCoupon,
   ]);
 
   useEffect(() => {
@@ -121,6 +117,7 @@ export const useSize = () => {
 
   const updateSize = () => {
     let aspectRatio = document.getElementById("wof-wheel-aspect");
+    console.log("aspectRatio:", aspectRatio.width);
     if (aspectRatio.width > 0) {
       setSize(aspectRatio.width);
     }

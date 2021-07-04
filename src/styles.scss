@@ -7,6 +7,18 @@ html {
   background: white;
   height: 100%;
   overflow: hidden;
+  font-size: 16px;
+}
+input,
+select {
+  font-size: 100%;
+}
+
+body,
+html,
+#root,
+.App {
+  height: 100%;
 }
 
 body {
