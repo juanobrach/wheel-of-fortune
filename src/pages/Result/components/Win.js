@@ -59,7 +59,7 @@ const Container = styled(motion.div)`
   width: 100vw;
   margin: 0;
   border-radius: 30px;
-  height: 100vh;
+  height: 100%;
   padding: 2em;
   display: flex;
   flex-flow: column;

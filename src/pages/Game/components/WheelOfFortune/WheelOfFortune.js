@@ -56,12 +56,12 @@ export const WheelOfFortune = ({
           />
           <div className="wheel-inner" style={{ width: `${size}px` }}>
             <div className="wheel-rotor-shadow">
-              <div className="wheel-rotor-shadow-inner wof-animated">
+              <div className="wheel-rotor-shadow-inner">
                 <RotorBackground />
               </div>
             </div>
             <Rotor
-              className={`${className} wheel-rotor wof-animated`}
+              className={`${className} wheel-rotor`}
               startSpinningTime={START_SPINNING_TIME}
               continueSpinningTime={CONTINUE_SPINNING_TIME}
               stopSpinningTime={STOP_SPINNING_TIME}
