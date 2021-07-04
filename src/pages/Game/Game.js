@@ -9,7 +9,7 @@ import { useCustomer } from "../../hooks";
 export const Game = () => {
   const history = useHistory();
   const { userId, bussinessId } = useContext(AuthContext);
-  const { setPrize, coupon } = useContext(GameContext);
+  const { setPrize, setExpirationDate, coupon } = useContext(GameContext);
   const { handleCreatePrize } = useCustomer();
   const {
     startRotationDegrees,
@@ -25,13 +25,14 @@ export const Game = () => {
     if (options[selectedRandom].win) {
       // generate coupon for winner
       setPrize(options[selectedRandom]);
-      handleCreatePrize(
+      const prize = await handleCreatePrize(
         userId,
         bussinessId,
         options[selectedRandom].name,
         selectedRandom,
         coupon
       );
+      setExpirationDate(prize.expirationDate);
     }
     history.push("/result");
   }, [
@@ -42,6 +43,7 @@ export const Game = () => {
     bussinessId,
     handleCreatePrize,
     setPrize,
+    setExpirationDate,
     coupon,
   ]);
 

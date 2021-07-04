@@ -38,6 +38,7 @@ export const useCustomer = () => {
       resolve({
         created: true,
         couponId: response.id,
+        expirationDate: expire_at,
       });
     });
   };

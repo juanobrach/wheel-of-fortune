@@ -11,6 +11,7 @@ export default function App() {
 
   const [coupon, setCoupon] = useState(null);
   const [prize, setPrize] = useState(null);
+  const [expirationDate, setExpirationDate] = useState(null);
   const [prizes, setPrizes] = useState(null);
   const [result, setResult] = useState(null);
 
@@ -37,6 +38,8 @@ export default function App() {
             prize: prize,
             prizes: prizes,
             result: result,
+            expirationDate: expirationDate,
+            setExpirationDate: setExpirationDate,
             setPrize: setPrize,
             setPrizes: setPrizes,
             setCoupon: setCoupon,

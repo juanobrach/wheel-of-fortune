@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import * as animationsVariants from "./animationsVariants";
 
-export const Win = ({ coupon,prize }) => {
+export const Win = ({ coupon, prize, expirationDate }) => {
   return (
     <Container>
       <div>
@@ -18,7 +18,7 @@ export const Win = ({ coupon,prize }) => {
         </Title>
         <Result>{prize.name}</Result>
         <Voucher>{coupon}</Voucher>
-
+        <ExpireAt>Valido hasta el {expirationDate}</ExpireAt>
       </div>
       <Illustration
         initial="hidden"
@@ -84,3 +84,4 @@ const Voucher = styled.div`
   text-transform: uppercase;
 `;
 
+const ExpireAt = styled.p``;
