@@ -9,8 +9,9 @@ import { useCustomer } from "../../hooks";
 export const Game = () => {
   const history = useHistory();
   const { userId, bussinessId } = useContext(AuthContext);
-  const { setPrize, setExpirationDate, coupon } = useContext(GameContext);
-  const { handleCreatePrize } = useCustomer();
+  const { setPrize, setExpirationDate, expirationDate, coupon } =
+    useContext(GameContext);
+  const { createPrize } = useCustomer();
   const {
     startRotationDegrees,
     finalRotationDegrees,
@@ -21,31 +22,35 @@ export const Game = () => {
     gameIsOver,
   } = useSpin();
 
-  const getScoreAndOver = useCallback(async () => {
-    if (options[selectedRandom].win) {
-      // generate coupon for winner
-      setPrize(options[selectedRandom]);
-      const prize = await handleCreatePrize(
-        userId,
-        bussinessId,
-        options[selectedRandom].name,
-        selectedRandom,
-        coupon
-      );
-      setExpirationDate(prize.expirationDate);
-    }
-    history.push("/result");
+  const handleCreatePrize = useCallback(async () => {
+    if (expirationDate) return;
+
+    const prize = await createPrize(
+      userId,
+      bussinessId,
+      options[selectedRandom].name,
+      selectedRandom,
+      coupon
+    );
+    setExpirationDate(prize.expirationDate);
   }, [
-    history,
-    options,
-    selectedRandom,
     userId,
     bussinessId,
-    handleCreatePrize,
-    setPrize,
-    setExpirationDate,
     coupon,
+    createPrize,
+    options,
+    selectedRandom,
+    setExpirationDate,
+    expirationDate,
   ]);
+
+  const getScoreAndOver = useCallback(async () => {
+    if (options[selectedRandom].win) {
+      setPrize(options[selectedRandom]);
+      await handleCreatePrize();
+    }
+    history.push("/result");
+  }, [history, options, selectedRandom, handleCreatePrize, setPrize]);
 
   useEffect(() => {
     if (gameIsOver === null) return;

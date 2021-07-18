@@ -7,7 +7,6 @@ export const useBussiness = () => {
         .collection("businesses")
         .where("name", "==", bussinessName.replace("-", " "))
         .get();
-
       if (snapshot.empty) {
         return {
           prizes: false,
@@ -31,8 +30,8 @@ export const useBussiness = () => {
     });
   };
 
-  const handleCreateCoupon = async () => {
-    const response = await fetch("/.netlify/functions/create-voucher", {
+  const handleCreateCouponCode = async () => {
+    const response = await fetch("/.netlify/functions/create-coupon-code", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,6 +43,6 @@ export const useBussiness = () => {
 
   return {
     handleGetPrizes,
-    handleCreateCoupon,
+    handleCreateCouponCode,
   };
 };

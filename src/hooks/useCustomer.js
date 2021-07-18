@@ -2,18 +2,7 @@ import db from "../firebase.config";
 import moment from "moment";
 
 export const useCustomer = () => {
-  const handleCreateCoupon = async (customerId, prizeName) => {
-    const response = await fetch("/.netlify/functions/create-cupon", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return response.json();
-  };
-
-  const handleCreatePrize = async (
+  const createPrize = async (
     customerId,
     bussinessId,
     prizeName,
@@ -69,7 +58,6 @@ export const useCustomer = () => {
 
   return {
     handleCreateCustomer,
-    handleCreatePrize,
-    handleCreateCoupon,
+    createPrize,
   };
 };

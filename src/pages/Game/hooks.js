@@ -21,7 +21,7 @@ import { GameContext } from "../../context";
 
 export const useSpin = () => {
   const { setPrize, setCoupon, prizes } = useContext(GameContext);
-  const { handleCreateCoupon } = useBussiness();
+  const { handleCreateCouponCode } = useBussiness();
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -37,11 +37,11 @@ export const useSpin = () => {
   }, [options]);
 
   const generateCoupon = useCallback(async () => {
-    const response = await handleCreateCoupon();
+    const response = await handleCreateCouponCode();
     if (response) {
       setCoupon(response);
     }
-  }, [handleCreateCoupon, setCoupon]);
+  }, [handleCreateCouponCode, setCoupon]);
 
   const startSpinning = useCallback(() => {
     setHasStartedSpinning(true);
