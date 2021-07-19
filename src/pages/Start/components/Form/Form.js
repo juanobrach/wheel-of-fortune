@@ -46,7 +46,7 @@ export const Form = () => {
   const submit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const response = await handleCreateCustomer(customerEmail);
+    const response = await handleCreateCustomer(bussiness, customerEmail);
     if (response.created) {
       setUserId(response.customerId);
       setIsAuth(true);

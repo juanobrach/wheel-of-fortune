@@ -7,6 +7,7 @@ export const useBussiness = () => {
         .collection("businesses")
         .where("name", "==", bussinessName.replace("-", " "))
         .get();
+
       if (snapshot.empty) {
         return {
           prizes: false,
@@ -14,13 +15,14 @@ export const useBussiness = () => {
       }
 
       await snapshot.docs.forEach(async (bussiness) => {
-        const query = await db
-          .collectionGroup("games")
+        const gamesCollection = await db
+          .collection("businesses")
+          .doc(bussiness.id)
+          .collection("games")
           .where("gameId", "==", gameId)
           .get();
-
-        query.docs.forEach(async (games) => {
-          const data = await games.data();
+        gamesCollection.docs.forEach(async (game) => {
+          const data = await game.data();
           resolve({
             prizes: data.prizes,
             bussinessId: bussiness.id,

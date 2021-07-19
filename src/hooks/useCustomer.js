@@ -32,27 +32,36 @@ export const useCustomer = () => {
     });
   };
 
-  const handleCreateCustomer = async (email) => {
+  const handleCreateCustomer = async (bussinessName, email) => {
     return new Promise(async (resolve, reject) => {
-      const customer = {
-        email,
-      };
-
       const snapshot = await db
-        .collection("customers")
-        .where("email", "==", customer.email)
+        .collection("businesses")
+        .where("name", "==", bussinessName.replace("-", " "))
         .get();
-      if (snapshot.empty) {
-        const response = await db.collection("customers").add(customer);
-        resolve({
-          created: true,
-          customerId: response.id,
-        });
-      } else {
-        resolve({
-          created: false,
-        });
-      }
+
+      await snapshot.docs.forEach(async (bussiness) => {
+        const bussinessRef = await db
+          .collection("businesses")
+          .doc(bussiness.id);
+
+        const customers = await bussinessRef
+          .collection("customers")
+          .where("email", "==", email)
+          .get();
+        if (customers.empty) {
+          const customerID = await bussinessRef.collection("customers").add({
+            email,
+          });
+          resolve({
+            created: true,
+            customerId: customerID.id,
+          });
+        } else {
+          resolve({
+            created: false,
+          });
+        }
+      });
     });
   };
 
